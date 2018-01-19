@@ -16,11 +16,11 @@ class FiltersPartial implements Filter
             });
         }
 
-        return $query->where($property, 'LIKE', "%{$this->escapeLike($value)}%");
+        return $query->whereRaw("$property LIKE '%{$this->escapeLike($value)}%' ESCAPE '\'");
     }
 
     private function escapeLike(string $value): string
     {
-        return addcslashes($value, '\%_');
+        return str_replace(['_', '%'], ['\_', '\%'], $value);
     }
 }

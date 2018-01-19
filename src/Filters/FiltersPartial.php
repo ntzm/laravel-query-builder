@@ -11,11 +11,16 @@ class FiltersPartial implements Filter
         if (is_array($value)) {
             return $query->where(function (Builder $query) use ($value, $property) {
                 foreach ($value as $partialValue) {
-                    $query->orWhere($property, 'LIKE', "%{$partialValue}%");
+                    $query->orWhere($property, 'LIKE', "%{$this->escapeLike($partialValue)}%");
                 }
             });
         }
 
-        return $query->where($property, 'LIKE', "%{$value}%");
+        return $query->where($property, 'LIKE', "%{$this->escapeLike($value)}%");
+    }
+
+    private function escapeLike(string $value): string
+    {
+        return addcslashes($value, '\%_');
     }
 }

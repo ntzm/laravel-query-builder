@@ -143,7 +143,7 @@ class QueryBuilder extends Builder
     {
         $includes
             ->map(function (string $include) {
-                return camel_case(str_replace('->', '.', $include));
+                return camel_case(str_replace('_', '.', $include));
             })
             ->each(function (string $include) {
                 $this->with($include);

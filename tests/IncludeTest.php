@@ -52,8 +52,8 @@ class IncludeTest extends TestCase
     public function it_can_include_nested_model_relations()
     {
         $models = $this
-            ->createQueryFromIncludeRequest('related-models->nested-related-models')
-            ->allowedIncludes('related-models->nested-related-models')
+            ->createQueryFromIncludeRequest('related-models.nested-related-models')
+            ->allowedIncludes('related-models.nested-related-models')
             ->get();
 
         $models->each(function (Model $model) {
